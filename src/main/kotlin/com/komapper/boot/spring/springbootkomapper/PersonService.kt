@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class PersonService(private val database: JdbcDatabase) {
+class PersonService(
+    private val database: JdbcDatabase
+    ) {
     fun findAll(): List<Person> {
         return database.runQuery {
             val p = Meta.person

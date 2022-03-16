@@ -7,22 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/groups")
-class GroupController() {
+@RequestMapping("/teams")
+class TeamController(
+    val teamService: TeamService
+) {
     @GetMapping("/{id}")
-    fun fetchId(@PathVariable("id") id: Int): ResponseEntity<Response> {
-        return ResponseEntity.ok(null)
+    fun fetchId(@PathVariable("id") id: Int): ResponseEntity<TeamDTO> {
+        return ResponseEntity.ok(teamService.findById(id))
     }
 }
-
-data class Response(
-    val id: Int,
-    val name: String,
-    val members: List<Member>,
-)
-
-data class Member(
-    val idd: Int,
-    val name: String,
-    val email: String,
-)
