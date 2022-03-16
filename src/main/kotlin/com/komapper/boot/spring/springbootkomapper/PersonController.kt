@@ -25,6 +25,19 @@ class PersonController(
         val uri = URI("/${person.id}")
         return ResponseEntity.created(uri).build()
     }
+
+    @PutMapping("/{id}")
+    fun update(@PathVariable("id") id: Int, @RequestBody body: Request): ResponseEntity<Void> {
+        val person = personService.update(id, body.name, body.email)
+        val uri = URI("/${person.id}")
+        return ResponseEntity.created(uri).build()
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable("id") id: Int, @RequestBody body: Request): ResponseEntity<Void> {
+        personService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 }
 
 data class Request(
