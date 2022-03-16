@@ -33,5 +33,23 @@ class PersonService(
             QueryDsl.insert(p).single(person)
         }
     }
+
+    @Transactional
+    fun update(id: Int, name: String, email: String): Person {
+        return database.runQuery {
+            val person = findById(id)
+            val p = Meta.person
+            QueryDsl.update(p).single(person.copy(name = name, email = email))
+        }
+    }
+
+    @Transactional
+    fun delete(id: Int) {
+        database.runQuery {
+            val person = findById(id)
+            val p = Meta.person
+            QueryDsl.delete(p).single(person)
+        }
+    }
 }
 
